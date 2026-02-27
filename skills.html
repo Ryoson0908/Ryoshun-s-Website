@@ -31,6 +31,9 @@
             background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #020617 100%);
             color: var(--text-main);
             min-height: 100vh;
+        }
+
+        .page-main {
             display: flex;
             justify-content: center;
             align-items: stretch;
@@ -66,7 +69,7 @@
         }
 
         @media (max-width: 880px) {
-            body {
+            .page-main {
                 padding: 20px 12px;
             }
             .inner {
@@ -78,58 +81,71 @@
             }
         }
 
-        header {
+        .site-header {
+            background: radial-gradient(circle at 0% 0%, #4f46e5 0%, #6366f1 30%, #0f172a 80%);
+            color: #f9fafb;
+            padding: 18px 6vw 22px;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.75);
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+        }
+
+        .header-inner {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
-            gap: 12px;
+            justify-content: space-between;
+            max-width: 1080px;
+            margin: 0 auto;
+            gap: 20px;
         }
 
         .brand {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .brand span {
-            font-size: 12px;
-            letter-spacing: .2em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
-        .brand h1 {
-            font-size: 24px;
-            font-weight: 600;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-        }
-
-        nav a {
-            font-size: 13px;
-            color: var(--text-muted);
-            text-decoration: none;
-            padding: 6px 14px;
-            border-radius: var(--radius-pill);
-            border: 1px solid rgba(148, 163, 184, 0.45);
-            backdrop-filter: blur(14px);
-            background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.96));
-            transition: all 0.18s ease-out;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 10px;
         }
 
-        nav a span {
-            font-size: 11px;
+        .brand-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #f97316, #facc15);
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+        }
+
+        .brand-text {
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            font-size: 0.88rem;
+            text-transform: uppercase;
             opacity: 0.9;
         }
 
-        nav a:hover {
+        .header-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 12px 14px;
+            font-size: 0.9rem;
+        }
+
+        .header-nav a {
+            padding: 6px 12px;
+            border-radius: 999px;
             color: #e5e7eb;
-            border-color: rgba(129, 140, 248, 0.9);
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
+            opacity: 0.9;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+        }
+
+        .header-nav a:hover {
+            background: rgba(15, 23, 42, 0.38);
+            color: #ffffff;
             transform: translateY(-1px);
         }
 
@@ -170,6 +186,7 @@
 
         .headline h2 span {
             background: linear-gradient(135deg, var(--accent-grad-start), var(--accent-grad-end));
+            background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
         }
@@ -519,32 +536,46 @@
         }
 
         @media (max-width: 600px) {
-            header {
+            .site-header {
+                padding: 16px 5vw 18px;
+                border-bottom-left-radius: 22px;
+                border-bottom-right-radius: 22px;
+            }
+
+            .header-inner {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 10px;
             }
-            nav a {
-                align-self: flex-start;
+
+            .header-nav {
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <main class="shell">
-        <section class="inner">
-            <div class="corner-orb"></div>
-            <header>
-                <div class="brand">
-                    <span>Skill Profile</span>
-                    <h1>Ryoshun</h1>
-                </div>
-                <nav>
-                    <a href="index.html">
-                        <span>Back</span>
-                        ポートフォリオトップへ
-                    </a>
-                </nav>
-            </header>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <span class="brand-mark">R</span>
+                <span class="brand-text">Ryoshun Portfolio</span>
+            </div>
+            <nav class="header-nav">
+                <a href="index.html">Top</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#works">Works</a>
+                <a href="index.html#journal">Journal</a>
+                <a href="skills.html">Skills</a>
+                <a href="vision.html">Vision</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-main">
+        <div class="shell">
+            <section class="inner">
+                <div class="corner-orb"></div>
 
             <div class="grid">
                 <div>
@@ -760,7 +791,8 @@
                     </div>
                 </aside>
             </div>
-        </section>
+            </section>
+        </div>
     </main>
 </body>
 </html>
