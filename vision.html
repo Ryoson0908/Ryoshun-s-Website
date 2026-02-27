@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vision | Ryoshun</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+        color: #0f172a;
+        background: radial-gradient(circle at top left, #eef2ff, #f9fafb 45%, #ffffff);
+      }
+
+      body {
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .site-header {
+        background: radial-gradient(
+          circle at 0% 0%,
+          #4f46e5 0%,
+          #6366f1 30%,
+          #0f172a 80%
+        );
+        color: #f9fafb;
+        padding: 18px 6vw 40px;
+        box-shadow: 0 18px 45px rgba(15, 23, 42, 0.45);
+        border-bottom-left-radius: 28px;
+        border-bottom-right-radius: 28px;
+      }
+
+      .header-inner {
+        max-width: 1080px;
+        margin: 0 auto 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #f97316, #facc15);
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 1.1rem;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+      }
+
+      .brand-text {
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        font-size: 0.88rem;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+
+      .header-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        font-size: 0.9rem;
+      }
+
+      .header-nav a {
+        padding: 6px 12px;
+        border-radius: 999px;
+        color: #e5e7eb;
+        opacity: 0.9;
+        transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+      }
+
+      .header-nav a:hover {
+        background: rgba(15, 23, 42, 0.38);
+        color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        max-width: 1080px;
+        margin: 0 auto;
+      }
+
+      .hero-kicker {
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #c7d2fe;
+        margin: 0 0 12px;
+      }
+
+      .hero-title {
+        font-size: clamp(1.9rem, 3.2vw + 1.3rem, 2.8rem);
+        line-height: 1.25;
+        margin: 0 0 10px;
+        font-weight: 700;
+      }
+
+      .hero-sub {
+        margin: 0;
+        max-width: 640px;
+        font-size: 0.96rem;
+        line-height: 1.9;
+        color: #e5e7eb;
+        opacity: 0.92;
+      }
+
+      .page-main {
+        max-width: 1080px;
+        margin: -12px auto 72px;
+        padding: 0 6vw 64px;
+      }
+
+      .timeline-wrapper {
+        position: relative;
+        margin-top: 40px;
+        padding-top: 10px;
+        padding-bottom: 14px;
+      }
+
+      .timeline-rail {
+        position: absolute;
+        inset: 0 auto 0 18px;
+        width: 2px;
+        background: linear-gradient(to bottom, rgba(129, 140, 248, 0.1), #4f46e5);
+        opacity: 0.45;
+      }
+
+      .timeline {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .timeline-item {
+        position: relative;
+        display: grid;
+        grid-template-columns: 90px minmax(0, 1fr);
+        gap: 24px;
+        align-items: flex-start;
+      }
+
+      .timeline-marker {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #4f46e5;
+        font-weight: 600;
+      }
+
+      .timeline-marker::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 30%, #fee2e2, #f97316);
+        box-shadow: 0 0 0 6px rgba(251, 146, 60, 0.25);
+      }
+
+      .timeline-step-label {
+        padding-left: 34px;
+      }
+
+      .timeline-card {
+        position: relative;
+        margin-left: 12px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(16px);
+        border-radius: 18px;
+        padding: 20px 22px 22px;
+        box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+      }
+
+      .timeline-card::before {
+        content: "";
+        position: absolute;
+        left: -12px;
+        top: 24px;
+        width: 16px;
+        height: 16px;
+        background: inherit;
+        border-left: 1px solid rgba(148, 163, 184, 0.22);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+        transform: rotate(45deg);
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 9px;
+        border-radius: 999px;
+        background: rgba(79, 70, 229, 0.06);
+        color: #4338ca;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .tag-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #4f46e5, #22d3ee);
+      }
+
+      .timeline-title {
+        margin: 0 0 10px;
+        font-size: 1.12rem;
+        letter-spacing: 0.02em;
+      }
+
+      .timeline-body {
+        margin: 0 0 10px;
+        font-size: 0.98rem;
+        line-height: 1.9;
+        color: #111827;
+      }
+
+      .timeline-note {
+        margin: 0;
+        font-size: 0.8rem;
+        color: #6b7280;
+      }
+
+      .highlight-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #eef2ff, #e0f2fe);
+        font-size: 0.78rem;
+        color: #1e293b;
+        margin-top: 4px;
+      }
+
+      .highlight-pill span {
+        font-weight: 600;
+        color: #4f46e5;
+      }
+
+      .footer-note {
+        margin-top: 40px;
+        font-size: 0.84rem;
+        color: #6b7280;
+        text-align: right;
+      }
+
+      .footer-note strong {
+        color: #111827;
+      }
+
+      .sp-only {
+        display: none;
+      }
+
+      .pc-only {
+        display: inline;
+      }
+
+      @media (max-width: 768px) {
+        .site-header {
+          padding: 16px 5vw 32px;
+          border-bottom-left-radius: 22px;
+          border-bottom-right-radius: 22px;
+        }
+
+        .header-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+          margin-bottom: 22px;
+        }
+
+        .header-nav {
+          font-size: 0.8rem;
+          gap: 12px;
+        }
+
+        .hero-sub {
+          font-size: 0.9rem;
+        }
+
+        .page-main {
+          margin-top: -8px;
+          padding-bottom: 40px;
+        }
+
+        .timeline-item {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 10px;
+        }
+
+        .timeline-marker {
+          margin-bottom: 2px;
+        }
+
+        .timeline-card {
+          margin-left: 0;
+        }
+
+        .timeline-card::before {
+          left: 16px;
+        }
+
+        .sp-only {
+          display: inline;
+        }
+
+        .pc-only {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-mark">R</span>
+          <span class="brand-text">Ryoshun Vision</span>
+        </div>
+        <nav class="header-nav">
+          <a href="index.html">Top</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#works">Works</a>
+          <a href="index.html#journal">Journal</a>
+          <a href="skills.html">Skills</a>
+          <a href="vision.html">Vision</a>
+        </nav>
+      </div>
+
+      <div class="hero">
+        <p class="hero-kicker">Vision / Timeline</p>
+        <h1 class="hero-title">
+          これからの数年で、<br class="sp-only" />世界と都市と暮らしの
+          交差点に立ちたい。
+        </h1>
+        <p class="hero-sub">
+          オーストラリアでのワーキングホリデーから、不動産リノベーションへの挑戦へ。
+          データ分析とビジネスの視点を掛け合わせながら、都市と暮らしの「余白」を
+          デザインしていくためのロードマップです。
+        </p>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="timeline-wrapper">
+        <div class="timeline-rail"></div>
+        <div class="timeline">
+          <!-- Global Experience -->
+          <article class="timeline-item">
+            <div class="timeline-marker">
+              <span class="timeline-step-label">Step 01</span>
+            </div>
+            <div class="timeline-card">
+              <div class="tag">
+                <span class="tag-dot"></span>
+                GLOBAL EXPERIENCE
+              </div>
+              <h2 class="timeline-title">オーストラリアで「価値観のストック」を増やす</h2>
+              <p class="timeline-body">
+                来月から始まるオーストラリアでのワーキングホリデーは、
+                単なる海外生活ではなく、人生の土台となる視点を集める期間だと考えています。
+                多様なバックグラウンドを持つ人たちと働き、暮らし、対話することで、
+                「当たり前」を一度解体し、再構築していきます。
+              </p>
+              <p class="timeline-body">
+                都市のスケール感、住宅のつくり、カフェや公共空間の使われ方。
+                そうした細部の体験をメモし、写真やデータとして記録しながら、
+                将来の不動産・リノベーションの仕事に持ち帰れるインプットに変えていきます。
+              </p>
+              <p class="timeline-note">
+                ※ キーワード：価値観のアップデート／暮らし方の比較／ローカルな視点への共感
+              </p>
+            </div>
+          </article>
+
+          <!-- Business & Strategy -->
+          <article class="timeline-item">
+            <div class="timeline-marker">
+              <span class="timeline-step-label">Step 02</span>
+            </div>
+            <div class="timeline-card">
+              <div class="tag">
+                <span class="tag-dot"></span>
+                BUSINESS &amp; STRATEGY
+              </div>
+              <h2 class="timeline-title">ビジネスの言語で「空間」を語れるようになる</h2>
+              <p class="timeline-body">
+                起業やビジネス戦略への関心は、単に会社をつくりたいからではなく、
+                「いい空間」をきちんと価値として届けるために必要な軸だと考えています。
+                どんな顧客に、どんな価値を、どのようなストーリーと価格で届けるのか。
+                その設計図を描けることが、空間づくりの強い武器になると信じています。
+              </p>
+              <p class="timeline-body">
+                データ分析・マーケティング・ファイナンスといったビジネススキルを学びつつ、
+                小さなプロジェクトや仮説検証を重ねることで、
+                「都市と暮らし」をビジネスの目線から読み解く力を磨いていきます。
+              </p>
+              <div class="highlight-pill">
+                <span>Focus</span> 市場を読む／数字で語る／戦略から空間をデザインする
+              </div>
+            </div>
+          </article>
+
+          <!-- Future Goal -->
+          <article class="timeline-item">
+            <div class="timeline-marker">
+              <span class="timeline-step-label">Step 03</span>
+            </div>
+            <div class="timeline-card">
+              <div class="tag">
+                <span class="tag-dot"></span>
+                FUTURE GOAL
+              </div>
+              <h2 class="timeline-title">不動産リノベーションで「新しい余白」をつくる</h2>
+              <p class="timeline-body">
+                最終的なゴールは、不動産業界、とくにリノベーション分野で、
+                これまでのデータ分析と海外経験を掛け合わせたプロジェクトを形にすることです。
+                物件そのものだけでなく、周辺環境・働き方・コミュニティのデータを踏まえた
+                「戦略的な空間づくり」を提案できる存在を目指します。
+              </p>
+              <p class="timeline-body">
+                海外で見た暮らし、数字で見えるニーズ、日本の文脈だからこそできる細やかさ。
+                それらを重ね合わせて、人が「ここで暮らしたい」「ここで働きたい」と
+                自然と思えるような余白のある空間を増やしていきたいです。
+              </p>
+              <p class="timeline-note">
+                将来、都市と人の距離を少しだけ近づけるようなリノベーションプロジェクトを、
+                自分の名前で立ち上げることがひとつの目標です。
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <p class="footer-note">
+          このページは、<strong>いま考えている未来のスナップショット</strong>です。<br class="pc-only" />
+          経験と学びに合わせて、少しずつアップデートしていきます。
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
+
