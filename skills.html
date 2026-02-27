@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Skills | My Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg-color: #050816;
+            --bg-elevated: #0b1020;
+            --accent: #4f46e5;
+            --accent-soft: rgba(79, 70, 229, 0.18);
+            --accent-grad-start: #4f46e5;
+            --accent-grad-end: #06b6d4;
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border-subtle: rgba(156, 163, 175, 0.3);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+            --radius-lg: 18px;
+            --radius-pill: 999px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #1e293b 0, #020617 45%, #020617 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            padding: 32px 16px;
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 1120px;
+            background: linear-gradient(135deg, rgba(148, 163, 184, 0.1), rgba(15, 23, 42, 0.95));
+            border-radius: 28px;
+            padding: 1px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .inner {
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.22), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.2), transparent 55%),
+                linear-gradient(145deg, #020617, #020617);
+            border-radius: 27px;
+            padding: 28px 22px 26px;
+            border: 1px solid rgba(15, 23, 42, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.1fr);
+            gap: 28px;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 880px) {
+            body {
+                padding: 20px 12px;
+            }
+            .inner {
+                padding: 22px 18px 20px;
+            }
+            .grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 22px;
+            }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 12px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .brand span {
+            font-size: 12px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .brand h1 {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        nav a {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            backdrop-filter: blur(14px);
+            background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.96));
+            transition: all 0.18s ease-out;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        nav a span {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        nav a:hover {
+            color: #e5e7eb;
+            border-color: rgba(129, 140, 248, 0.9);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
+            transform: translateY(-1px);
+        }
+
+        .headline {
+            margin-bottom: 24px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(129, 140, 248, 0.7);
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.5), transparent 60%),
+                rgba(15, 23, 42, 0.9);
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: #c7d2fe;
+            margin-bottom: 16px;
+        }
+
+        .eyebrow-dot {
+            height: 7px;
+            width: 7px;
+            border-radius: 999px;
+            background: conic-gradient(from 180deg, #4f46e5, #0ea5e9, #22c55e, #4f46e5);
+            box-shadow: 0 0 14px rgba(79, 70, 229, 0.8);
+        }
+
+        .headline h2 {
+            font-size: clamp(26px, 3vw, 30px);
+            line-height: 1.18;
+            margin-bottom: 10px;
+        }
+
+        .headline h2 span {
+            background: linear-gradient(135deg, var(--accent-grad-start), var(--accent-grad-end));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .headline p {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 34rem;
+            line-height: 1.7;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .tag {
+            font-size: 11px;
+            color: #cbd5f5;
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.32), rgba(15, 23, 42, 0.96));
+        }
+
+        .panel {
+            background: rgba(15, 23, 42, 0.86);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            padding: 18px 16px 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at top right, rgba(79, 70, 229, 0.35), transparent 58%),
+                radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.25), transparent 60%);
+            opacity: 0.75;
+            mix-blend-mode: soft-light;
+            pointer-events: none;
+        }
+
+        .panel-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #cbd5f5;
+        }
+
+        .panel-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .panel-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .pill {
+            padding: 4px 10px;
+            border-radius: var(--radius-pill);
+            background: rgba(15, 23, 42, 0.88);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pill-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+        }
+
+        .pill-label {
+            font-size: 10px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .level-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .level-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .16em;
+            color: var(--text-muted);
+        }
+
+        .level-track {
+            flex: 1;
+            height: 4px;
+            border-radius: 999px;
+            background: rgba(30, 64, 175, 0.45);
+            overflow: hidden;
+        }
+
+        .level-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--accent-grad-start), var(--accent-grad-end));
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+        }
+
+        .level-fill[data-width="80"] { width: 80%; }
+        .level-fill[data-width="78"] { width: 78%; }
+        .level-fill[data-width="74"] { width: 74%; }
+        .level-fill[data-width="70"] { width: 70%; }
+
+        .cards {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .card {
+            border-radius: 14px;
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.96));
+            padding: 11px 12px 11px;
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 10px;
+            backdrop-filter: blur(12px);
+        }
+
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.7), rgba(15, 23, 42, 0.98));
+        }
+
+        .card-body h3 {
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .card-body p {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 4px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .card-tag {
+            font-size: 10px;
+            padding: 3px 7px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            background: rgba(15, 23, 42, 0.96);
+            color: #e5e7eb;
+        }
+
+        .note {
+            margin-top: 14px;
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .note span {
+            color: #e5e7eb;
+        }
+
+        .note strong {
+            color: #bfdbfe;
+            font-weight: 500;
+        }
+
+        .context-list {
+            list-style: none;
+            margin-top: 8px;
+            display: grid;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .context-list li {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .context-bullet {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.7), rgba(15, 23, 42, 0.96));
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .right-top {
+            padding: 14px 14px 12px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.45), rgba(15, 23, 42, 0.98));
+            backdrop-filter: blur(12px);
+        }
+
+        .right-top-label {
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #c7d2fe;
+            margin-bottom: 6px;
+        }
+
+        .right-top-title {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .right-top-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .right-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .right-pill {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(191, 219, 254, 0.8);
+            background: rgba(15, 23, 42, 0.96);
+            color: #e5e7eb;
+        }
+
+        .timeline {
+            padding: 14px 14px 12px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(51, 65, 85, 0.9);
+            background: rgba(15, 23, 42, 0.94);
+        }
+
+        .timeline-label {
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 8px 10px;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 6px 0;
+        }
+
+        .timeline-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.9), rgba(6, 182, 212, 0.8));
+            margin-top: 4px;
+        }
+
+        .timeline-title {
+            color: #e5e7eb;
+        }
+
+        .timeline-meta {
+            font-size: 10px;
+        }
+
+        .timeline-item + .timeline-item {
+            border-top: 1px dashed rgba(55, 65, 81, 0.8);
+        }
+
+        .corner-orb {
+            position: absolute;
+            right: -80px;
+            bottom: -80px;
+            width: 200px;
+            height: 200px;
+            border-radius: 999px;
+            background:
+                radial-gradient(circle at top left, rgba(79, 70, 229, 0.8), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(6, 182, 212, 0.7), transparent 60%);
+            opacity: 0.26;
+            filter: blur(4px);
+            pointer-events: none;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            nav a {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <section class="inner">
+            <div class="corner-orb"></div>
+            <header>
+                <div class="brand">
+                    <span>Skill Profile</span>
+                    <h1>Ryoshun</h1>
+                </div>
+                <nav>
+                    <a href="index.html">
+                        <span>Back</span>
+                        ポートフォリオトップへ
+                    </a>
+                </nav>
+            </header>
+
+            <div class="grid">
+                <div>
+                    <div class="headline">
+                        <div class="eyebrow">
+                            <span class="eyebrow-dot"></span>
+                            CORE SKILLS
+                        </div>
+                        <h2>
+                            コードとマーケットから<br>
+                            <span>インサイトを抽出する力</span>
+                        </h2>
+                        <p>
+                            Python を軸にしたプログラミングと Web スクレイピング、
+                            そして FX・インデックス投資の実践で培ったデータ分析の視点を組み合わせ、
+                            「数字の裏側にあるストーリー」を読み解くことを得意としています。
+                        </p>
+                        <div class="tags">
+                            <div class="tag">Python / データ処理</div>
+                            <div class="tag">Web スクレイピング</div>
+                            <div class="tag">FX ・インデックス投資</div>
+                            <div class="tag">バックテスト / 検証</div>
+                            <div class="tag">仮説検証型アプローチ</div>
+                        </div>
+                    </div>
+
+                    <article class="panel">
+                        <div class="panel-inner">
+                            <div class="panel-header">
+                                <div>
+                                    <div class="panel-title">Technical Stack</div>
+                                    <div class="panel-subtitle">
+                                        データを扱うための実践的な技術基盤
+                                    </div>
+                                </div>
+                                <div class="panel-meta">
+                                    <div class="pill">
+                                        <span class="pill-dot"></span>
+                                        <span class="pill-label">Hands-on</span>
+                                    </div>
+                                    <div>日々のトレード・学習で継続アップデート中</div>
+                                </div>
+                            </div>
+
+                            <div class="level-bars">
+                                <div class="level-row">
+                                    <span>Python</span>
+                                    <div class="level-track">
+                                        <div class="level-fill" data-width="80"></div>
+                                    </div>
+                                </div>
+                                <div class="level-row">
+                                    <span>Web Scraping</span>
+                                    <div class="level-track">
+                                        <div class="level-fill" data-width="78"></div>
+                                    </div>
+                                </div>
+                                <div class="level-row">
+                                    <span>Data Analysis</span>
+                                    <div class="level-track">
+                                        <div class="level-fill" data-width="74"></div>
+                                    </div>
+                                </div>
+                                <div class="level-row">
+                                    <span>Visualization</span>
+                                    <div class="level-track">
+                                        <div class="level-fill" data-width="70"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cards">
+                                <div class="card">
+                                    <div class="card-icon">Py</div>
+                                    <div class="card-body">
+                                        <h3>Python プログラミング</h3>
+                                        <p>
+                                            データ収集・前処理・分析を一貫して行うためのスクリプト作成を中心に、
+                                            小さな自動化から検証用ツールまで実装経験があります。
+                                        </p>
+                                        <div class="card-tags">
+                                            <span class="card-tag">pandas / NumPy</span>
+                                            <span class="card-tag">API 連携</span>
+                                            <span class="card-tag">タスク自動化</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">WS</div>
+                                    <div class="card-body">
+                                        <h3>Web スクレイピング</h3>
+                                        <p>
+                                            相場データやニュース、インジケーター情報などを Web から継続的に取得し、
+                                            分析用のデータセットとして整形するパイプラインを構築してきました。
+                                        </p>
+                                        <div class="card-tags">
+                                            <span class="card-tag">Requests / Selenium</span>
+                                            <span class="card-tag">Beautiful Soup</span>
+                                            <span class="card-tag">データクレンジング</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-icon">FX</div>
+                                    <div class="card-body">
+                                        <h3>FX ・インデックス投資 × データ分析</h3>
+                                        <p>
+                                            テクニカル指標や統計的特徴量を用いた検証を通じて、
+                                            「なんとなくの感覚」ではなくデータに基づいた判断を重視するスタイルを築いています。
+                                        </p>
+                                        <div class="card-tags">
+                                            <span class="card-tag">バックテスト設計</span>
+                                            <span class="card-tag">リスク管理</span>
+                                            <span class="card-tag">インデックス比較</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="note">
+                                <span>※</span>
+                                上記のレベルは <strong>「現在の実務感覚」</strong> を示すものであり、
+                                学習・アウトプットを通じて随時アップデートしていきます。
+                            </p>
+
+                            <ul class="context-list">
+                                <li>
+                                    <span class="context-bullet"></span>
+                                    <span>「自動で集めたデータ」から「意思決定に使える情報」へ落とし込むことを常に意識しています。</span>
+                                </li>
+                                <li>
+                                    <span class="context-bullet"></span>
+                                    <span>コードの読みやすさ・再利用性を意識し、小さな関数やモジュール単位で整理するのが好みです。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="right-column">
+                    <div class="right-top">
+                        <div class="right-top-label">Perspective</div>
+                        <div class="right-top-title">マーケットから学んだ「データの見方」</div>
+                        <p class="right-top-sub">
+                            相場は常にノイズを含み、きれいな答えがない世界です。
+                            その中で FX やインデックス投資の記録を取り続ける中で、
+                            「短期のブレではなく、長期のパターンを見る」という視点が自然と身についてきました。
+                        </p>
+                        <div class="right-pills">
+                            <span class="right-pill">ドローダウンの許容範囲を数値で把握</span>
+                            <span class="right-pill">期待値ベースでの戦略評価</span>
+                            <span class="right-pill">感情よりルールを優先</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-label">Application</div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div>
+                                <div class="timeline-title">トレードログ × Python</div>
+                                <div class="timeline-meta">
+                                    売買記録・スクリーンショット・コメントを一元管理し、
+                                    後から定量評価できるようにログ形式を設計。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div></div>
+                            <div class="timeline-meta">
+                                ・勝ち負けだけでなく「そのトレードはルール通りだったか」をフラグで管理<br>
+                                ・時間帯・通貨ペア別の勝率などを集計し、エッジのある条件を抽出
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div>
+                                <div class="timeline-title">インデックス投資のシミュレーション</div>
+                                <div class="timeline-meta">
+                                    積立額・期間・ドローダウンを変えながら、
+                                    自分にとって心理的に続けやすいリスクレンジを検証。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div></div>
+                            <div class="timeline-meta">
+                                ・実績とシミュレーションを比較し、想定とのズレを定期的にレビュー<br>
+                                ・「もしこの期間に始めていたら？」など開始タイミングの違いも評価
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div>
+                                <div class="timeline-title">ニュース・ファンダメンタルの収集</div>
+                                <div class="timeline-meta">
+                                    スクレイピングで取得したニュースヘッドラインとチャートの動きを紐づけ、
+                                    相場の「きっかけ」と「継続性」を整理。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div></div>
+                            <div class="timeline-meta">
+                                ・どのタイプのニュースがどの程度の値動きにつながりやすいかを可視化<br>
+                                ・定性的な印象を、できるだけ定量的な指標に落とし込むことを意識
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
